@@ -6,3 +6,10 @@ body {
 .amap-copyright {
   display: none !important;
 }
+
+// vant 样式重置
+
+.van-tabbar--fixed,
+.van-nav-bar--fixed {
+  z-index: 9999;
+}
