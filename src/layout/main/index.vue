@@ -21,7 +21,7 @@ export default {
 <style lang="scss" scoped>
 .mainContainer {
   height: auto;
-  margin-bottom: 12.54vw;
+  // padding-bottom: 12.54vw;
 }
 .fade-enter-active,
 .fade-leave-active {
