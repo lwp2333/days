@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="list">
-      <div class="list-item">
-        <van-cell center size="large" is-link v-for="item in list" :key="item._id">
+      <van-swipe-cell v-for="item in list" :key="item._id">
+        <van-cell center size="large" is-link :to="{ path: '/user/detail', query: { id: item._id } }">
           <template #title>
             <span class="userName">{{ item.name }}</span>
           </template>
@@ -10,11 +10,15 @@
             <van-image round width="12vw" height="12vw" src="https://img.yzcdn.cn/vant/cat.jpeg" />
           </template>
           <template #label>
-            <div class="des">{{ item.description }}</div>
             <van-tag v-for="(item, index) in item.tags" mark :type="tagType[index % 3]" :key="index">{{ item }}</van-tag>
+            <div class="des">{{ item.description }}</div>
           </template>
         </van-cell>
-      </div>
+        <template #right>
+          <van-button square text="删除" type="danger" @click="delAction(item)" class="delete-button" />
+        </template>
+      </van-swipe-cell>
+      <van-empty v-if="!list.length > 0" description="暂无数据" />
     </div>
     <div class="action">
       <van-button icon="plus" round color="linear-gradient(to right, #667eea, #764ba2)" :to="{ path: '/user/detail' }">
@@ -25,7 +29,7 @@
 </template>
 
 <script>
-import { getUserList, createUser } from '@/api/user'
+import { getUserList, createUser, delUser } from '@/api/user'
 export default {
   name: 'UserList',
   components: {},
@@ -43,6 +47,21 @@ export default {
     initData: async function() {
       const res = await getUserList()
       this.list = res || []
+    },
+    delAction: function(item) {
+      this.$dialog
+        .confirm({
+          title: '提示',
+          message: `确认删除成员：${item.name}嘛？`
+        })
+        .then(() => {
+          this.delData(item)
+        })
+    },
+    delData: function({ _id }) {
+      delUser({ _id }).then(() => {
+        this.initData()
+      })
     }
   }
 }
@@ -70,14 +89,19 @@ export default {
   font-weight: 500;
 }
 .des {
+  margin-top: 1vw;
   line-height: 18px;
 }
 /deep/.van-tag {
+  margin-bottom: 1vw;
   &:not(:last-child) {
     margin-right: 2vw;
   }
 }
 /deep/.van-cell__title {
   flex: 5 !important;
+}
+.delete-button {
+  height: 100%;
 }
 </style>

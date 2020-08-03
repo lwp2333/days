@@ -54,7 +54,7 @@ service.interceptors.response.use(res => {
   if (res.data.code === 302) {
     // 请求失败，字段缺失
     Notify({
-      type: 'primary',
+      type: 'warning',
       message: res.data.message
     })
     return Promise.reject(res.data.message)

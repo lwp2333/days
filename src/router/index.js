@@ -29,7 +29,7 @@ const routes = [
         path: 'detail',
         name: 'userDetail',
         meta: {
-          title: '成员详情',
+          title: '成员信息',
           showNavbar: true
         },
         component: () => import('@/views/user/detail')

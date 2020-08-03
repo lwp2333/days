@@ -1,7 +1,7 @@
 <template>
   <div class="tabbar">
     <van-tabbar v-model="active" @change="tabChange">
-      <van-tabbar-item name="/" icon="home-o">首页</van-tabbar-item>
+      <van-tabbar-item name="/user" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item name="/amap" icon="search">地图</van-tabbar-item>
       <van-tabbar-item name="/blog" icon="friends-o">博客</van-tabbar-item>
       <van-tabbar-item name="/about" icon="setting-o">关于我</van-tabbar-item>
