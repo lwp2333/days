@@ -1,19 +1,7 @@
 <template>
   <div class="container">
     <van-form @submit="onSubmit">
-      <!-- <van-cell title="头像：" center required>
-        <van-uploader
-          v-model="form.avatar"
-          multiple
-          upload-text="上传头像"
-          result-type="file"
-          :max-size="500 * 1024"
-          :max-count="1"
-          @oversize="onOversize"
-          :after-read="afterRead"
-        />
-      </van-cell> -->
-      <van-field label="头像" :rules="[{ required: true, message: '请上传头像' }]">
+      <van-field label="头像" required :rules="[{ required: true, message: '请上传头像' }]">
         <template #input>
           <van-uploader
             v-model="form.avatar"
@@ -31,6 +19,7 @@
         v-model="form.name"
         required
         label="昵称："
+        maxlength="6"
         placeholder="请输入昵称"
         :rules="[{ required: true, message: '请输入昵称' }]"
       />
@@ -39,6 +28,7 @@
         required
         type="digit"
         label="年龄："
+        maxlength="2"
         placeholder="请输入年龄"
         :rules="[{ required: true, message: '请输入年龄' }]"
       />
@@ -67,11 +57,11 @@
         label="描述："
         placeholder="请输入描述"
         type="textarea"
-        maxlength="40"
+        maxlength="20"
         show-word-limit
         :rules="[{ required: true, message: '请输入描述' }]"
       />
-      <div style="margin: 16px;">
+      <div class="action">
         <van-button round block color="linear-gradient(to right, #667eea, #764ba2)" native-type="submit">
           {{ type === 'Add' ? '新增' : '更新' }}
         </van-button>
@@ -113,11 +103,13 @@ export default {
         this.id = id
         this.type = 'Edit'
         const res = await getUserDetail({ _id: this.id }).catch(() => {})
-        res &&
-          (this.form = {
-            avatar: [],
-            ...res
-          })
+        if (res) {
+          const { avatar, ...other } = res
+          this.form = {
+            ...other,
+            avatar: [avatar]
+          }
+        }
       }
     },
     onOversize(file) {
@@ -144,7 +136,12 @@ export default {
       if (this.type === 'Edit') {
         Action = updateUser
       }
-      Action(this.form).then(() => {
+      const { avatar, ...other } = this.form
+      const data = {
+        ...other,
+        avatar: avatar[0]
+      }
+      Action(data).then(() => {
         this.$notify({
           type: 'success',
           message: '保存成功！'
@@ -168,5 +165,8 @@ export default {
 }
 /deep/.van-uploader__preview-image {
   border-radius: 50%;
+}
+.action {
+  margin-top: 6vh;
 }
 </style>

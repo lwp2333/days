@@ -9,6 +9,15 @@ export function getUserList(params) {
   })
 }
 
+/** 获取人员分页列表*/
+export function getUserListByPage(params) {
+  return request({
+    url: 'getUserListByPage',
+    method: 'get',
+    params
+  })
+}
+
 /** 添加人员*/
 export function createUser(data) {
   return request({
