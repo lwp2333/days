@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了呀" @load="onLoad">
       <van-cell v-for="item in list" :key="item" :title="item" @click="handleDetail(item)" />
     </van-list>
   </div>
