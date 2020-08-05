@@ -1,4 +1,4 @@
-# amap
+# days
 
 ## Project setup
 ```
