@@ -70,5 +70,20 @@ service.interceptors.response.use(
     return Promise.reject(err.message)
   }
 )
+service.download = async (url, params) => {
+  // 下载二进制文件
+  const fullUrl = process.env.VUE_APP_BASE_API + url
+  const res = await axios.get(fullUrl, { params, responseType: 'blob' })
+  // 保存文件
+  if (!res.data) return
+  let blobUrl = window.URL.createObjectURL(new Blob([res.data]))
+  let link = document.createElement('a')
+  link.style.display = 'none'
+  link.href = blobUrl
+  const { fileName } = params
+  fileName && link.setAttribute('download', fileName)
+  document.body.appendChild(link)
+  link.click()
+}
 
 export default service

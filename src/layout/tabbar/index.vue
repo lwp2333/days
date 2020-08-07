@@ -4,7 +4,7 @@
       <van-tabbar-item name="/user" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item name="/amap" icon="search">地图</van-tabbar-item>
       <van-tabbar-item name="/blog" icon="friends-o">博客</van-tabbar-item>
-      <van-tabbar-item name="/about" icon="setting-o">关于我</van-tabbar-item>
+      <van-tabbar-item name="/apply" icon="setting-o">申请</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

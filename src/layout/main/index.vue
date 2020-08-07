@@ -3,6 +3,7 @@
     <transition name="fade">
       <router-view></router-view>
     </transition>
+    <div class="empty"></div>
   </div>
 </template>
 
@@ -20,8 +21,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .mainContainer {
-  height: auto;
-  // padding-bottom: 12.54vw;
+  min-height: 100vh;
+  .empty {
+    padding: 8vw 0;
+  }
 }
 .fade-enter-active,
 .fade-leave-active {

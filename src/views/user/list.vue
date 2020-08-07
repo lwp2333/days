@@ -131,7 +131,7 @@ export default {
     position: fixed;
     width: 100vw;
     text-align: center;
-    bottom: 8vh;
+    bottom: 16vw;
   }
 }
 .userName {

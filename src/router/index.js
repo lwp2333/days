@@ -68,6 +68,40 @@ const routes = [
         component: () => import('@/views/blog/detail')
       }
     ]
+  },
+  {
+    path: '/apply',
+    name: 'apply',
+    component: () => import('@/views/apply/index'),
+    redirect: '/apply/list',
+    children: [
+      {
+        path: 'list',
+        name: 'applyList',
+        meta: {
+          title: '可申请列表'
+        },
+        component: () => import('@/views/apply/applyList')
+      },
+      {
+        path: 'detail',
+        name: 'applyDetail',
+        meta: {
+          title: '已申请详情',
+          showNavbar: true
+        },
+        component: () => import('@/views/apply/applyDetail')
+      },
+      {
+        path: 'result',
+        name: 'applyResult',
+        meta: {
+          title: '申诉结果',
+          showNavbar: true
+        },
+        component: () => import('@/views/apply/applyResult')
+      }
+    ]
   }
 ]
 
