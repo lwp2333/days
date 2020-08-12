@@ -21,9 +21,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .mainContainer {
-  min-height: 100vh;
+  height: auto;
   .empty {
-    padding: 8vw 0;
+    padding: 6.4vw 0;
   }
 }
 .fade-enter-active,

@@ -155,7 +155,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 100vw;
-  min-height: 80vh;
   position: relative;
 }
 /deep/.van-checkbox--horizontal {
@@ -167,6 +166,6 @@ export default {
   border-radius: 50%;
 }
 .action {
-  margin-top: 6vh;
+  padding: 6vw;
 }
 </style>

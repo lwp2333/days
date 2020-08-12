@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <van-notice-bar color="#1989fa" background="#ecf9ff" left-icon="info-o">共有{{ recordInfo.totalRecord }}条成员信息 </van-notice-bar>
+    <van-sticky>
+      <van-notice-bar color="#1989fa" background="#ecf9ff" left-icon="info-o">共有{{ recordInfo.totalRecord }}条成员信息 </van-notice-bar>
+    </van-sticky>
     <van-list
       class="list"
       v-model="loading"
@@ -69,6 +71,7 @@ export default {
   computed: {},
   methods: {
     onLoad: async function() {
+      this.loading = true
       const res = await getUserListByPage(this.pageInfo).catch(() => {
         this.loading = false
       })
@@ -121,10 +124,9 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 100vw;
-  min-height: 100vh;
   position: relative;
   .list {
-    max-height: calc(84vh - 32px);
+    max-height: calc(80vh - 32px);
     overflow: auto;
   }
   .action {
