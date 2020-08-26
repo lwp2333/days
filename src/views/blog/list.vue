@@ -23,12 +23,16 @@ export default {
     onLoad: function() {
       // 异步更新数据
       // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+      this.$myLoading.show()
       setTimeout(() => {
-        for (let i = 0; i < 16; i++) {
+        const arr = [...new Array(16).keys()]
+        arr.map(item => {
           this.list.push(`博客${this.list.length + 1}`)
-        }
+        })
         // 加载状态结束
         this.loading = false
+        this.$myLoading.hide()
+
         // 数据全部加载完成
         if (this.list.length >= 40) {
           this.finished = true

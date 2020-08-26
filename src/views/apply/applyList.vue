@@ -3,10 +3,13 @@
     <div class="banner">
       <van-image width="100vw" fit="contain" :src="banner" />
       <div class="mark">
-        <span>正在申请查看 - <span class="entName"> 杭州钟鼓科技有限公司</span> 信息</span>
+        <span>正在申请查看 - <span class="entName"> 杭州XXX科技有限公司</span> 信息</span>
       </div>
     </div>
     <div>
+      <van-notice-bar color="#FA5741" background="#FFF0EF" left-icon="info-o">
+        所选的查看信息仅本次扫描有效
+      </van-notice-bar>
       <span class="tip">
         请选取需要查看的信息
       </span>
@@ -92,9 +95,6 @@
           </template>
         </van-collapse-item>
       </van-collapse>
-      <van-notice-bar color="#FA5741" background="#FFF0EF" left-icon="info-o">
-        所选的查看信息仅本次扫描有效
-      </van-notice-bar>
     </div>
     <div class="action">
       <van-button block type="info">确认</van-button>
@@ -128,52 +128,34 @@ export default {
       }
     }
   },
-  created: function() {},
+  created: function() {
+    // vant 自带
+    // this.$toast.loading({
+    //   message: '加载中...',
+    //   forbidClick: false
+    // })
+    // 自建loading
+    this.$myLoading.show()
+    setTimeout(() => {
+      this.$myLoading.hide()
+    }, 1200)
+  },
   watch: {
     'finance.checked': function(val) {
-      if (val.length === this.financeOptions.length) {
-        this.finance.checkedAll = true
-      } else {
-        this.finance.checkedAll = false
-      }
+      this.finance.checkedAll = val.length === this.financeOptions.length
     },
     'mujun.checked': function(val) {
-      if (val.length === this.mujunOptions.length) {
-        this.mujun.checkedAll = true
-      } else {
-        this.mujun.checkedAll = false
-      }
+      this.mujun.checkedAll = val.length === this.mujunOptions.length
     },
     'licence.checked': function(val) {
-      if (val.length === this.licenceOptions.length) {
-        this.licence.checkedAll = true
-      } else {
-        this.licence.checkedAll = false
-      }
+      this.licence.checkedAll = val.length === this.licenceOptions.length
     }
   },
   computed: {},
   methods: {
     checkAll(item) {
       const isCheckedAll = this[item].checkedAll
-      const arr = []
-      if (isCheckedAll) {
-        this.$refs[item].toggleAll(false)
-      } else {
-        this.$refs[item].toggleAll(true)
-      }
-    },
-    hashCode(str) {
-      let hash = 0
-      let i
-      let chr
-      if (str.length === 0) return hash
-      for (i = 0; i < str.length; i++) {
-        chr = str.charCodeAt(i)
-        hash = (hash << 5) - hash + chr
-        hash |= 0
-      }
-      return hash
+      this.$refs[item].toggleAll(!isCheckedAll)
     }
   }
 }

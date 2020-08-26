@@ -74,6 +74,7 @@ export default {
       this.loading = true
       const res = await getUserListByPage(this.pageInfo).catch(() => {
         this.loading = false
+        this.$myLoading.hide()
       })
       this.loading = false
       if (res) {

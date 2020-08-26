@@ -75,15 +75,24 @@ service.download = async (url, params) => {
   const fullUrl = process.env.VUE_APP_BASE_API + url
   const res = await axios.get(fullUrl, { params, responseType: 'blob' })
   // 保存文件
-  if (!res.data) return
-  let blobUrl = window.URL.createObjectURL(new Blob([res.data]))
-  let link = document.createElement('a')
-  link.style.display = 'none'
-  link.href = blobUrl
   const { fileName } = params
-  fileName && link.setAttribute('download', fileName)
-  document.body.appendChild(link)
+  if (!res.data) {
+    Notify({
+      type: 'danger',
+      message: '文件下载失败'
+    })
+    return
+  }
+  if (window.navigator.msSaveBlob) {
+    navigator.msSaveBlob(res.data, fileName)
+    return
+  }
+  // 处理兼容IE
+  let blobUrl = window.URL.createObjectURL(res.data)
+  let link = document.createElement('a')
+  link.download = blobUrl
   link.click()
+  window.URL.revokeObjectURL(blobUrl)
 }
 
 export default service
