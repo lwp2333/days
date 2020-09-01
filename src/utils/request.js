@@ -54,23 +54,17 @@ service.interceptors.response.use(
   res => {
     switch (res.data.code) {
       case 200:
-        successRes(res)
-        break
-      case 201 | 202:
-        successChange(res)
-        break
-      case 203 | 204:
-        danger(res)
-        break
+        return successRes(res)
+      case 201 || 203:
+        return successChange(res)
+      case 202 || 204:
+        return danger(res)
       case 301:
-        danger(res)
-        break
+        return danger(res)
       case 302:
-        warning(res)
-        break
+        return warning(res)
       default:
-        successRes(res)
-        break
+        return successRes(res)
     }
   },
   err => {
