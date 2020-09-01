@@ -20,54 +20,61 @@ service.interceptors.request.use(
   }
 )
 
-// 响应拦截
+const successRes = res => {
+  // 接口请求成功
+  return res.data.data
+}
+const successChange = res => {
+  // 删除，修改记录成功
+  Notify({
+    type: 'success',
+    message: res.data.message
+  })
+  return res.data.data
+}
+const warning = res => {
+  // 请求失败，字段缺失
+  Notify({
+    type: 'warning',
+    message: res.data.message
+  })
+  return Promise.reject(res.data.message)
+}
+const danger = res => {
+  // 请求失败，原因message
+  Notify({
+    type: 'danger',
+    message: res.data.message
+  })
+  return Promise.reject(res.data.message)
+}
 
+// 响应拦截
 service.interceptors.response.use(
   res => {
-    if (res.data.code === 200) {
-      // 接口请求成功
-      return res.data.data
-    }
-    if (res.data.code === 201 || res.data.code === 203) {
-      // 删除，修改记录成功
-      Notify({
-        type: 'success',
-        message: res.data.message
-      })
-      return res.data.data
-    }
-    if (res.data.code === 202 || res.data.code === 203) {
-      // 删除，修改记录失败
-      Notify({
-        type: 'danger',
-        message: res.data.message
-      })
-      return Promise.reject(res.data.message)
-    }
-    if (res.data.code === 301) {
-      // 请求失败，原因未知
-      Notify({
-        type: 'danger',
-        message: res.data.message
-      })
-      return Promise.reject(res.data.message)
-    }
-    if (res.data.code === 302) {
-      // 请求失败，字段缺失
-      Notify({
-        type: 'warning',
-        message: res.data.message
-      })
-      return Promise.reject(res.data.message)
+    switch (res.data.code) {
+      case 200:
+        successRes(res)
+        break
+      case 201 | 202:
+        successChange(res)
+        break
+      case 203 | 204:
+        danger(res)
+        break
+      case 301:
+        danger(res)
+        break
+      case 302:
+        warning(res)
+        break
+      default:
+        successRes(res)
+        break
     }
   },
   err => {
-    // 接口调用失败
-    Notify({
-      type: 'danger',
-      message: err.message
-    })
-    return Promise.reject(err.message)
+    danger(err)
   }
 )
 service.download = async (url, params) => {
