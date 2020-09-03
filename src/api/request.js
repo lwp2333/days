@@ -64,7 +64,7 @@ service.interceptors.response.use(
       case 302:
         return warning(res)
       default:
-        return successRes(res)
+        break
     }
   },
   err => {

@@ -42,7 +42,7 @@ const routes = [
     meta: {
       title: '高德地图'
     },
-    component: () => import('@/views/Amap')
+    component: () => import('@/views/Amap/index')
   },
   {
     path: '/blog',
@@ -70,38 +70,12 @@ const routes = [
     ]
   },
   {
-    path: '/apply',
-    name: 'apply',
-    component: () => import('@/views/apply/index'),
-    redirect: '/apply/list',
-    children: [
-      {
-        path: 'list',
-        name: 'applyList',
-        meta: {
-          title: '可申请列表'
-        },
-        component: () => import('@/views/apply/applyList')
-      },
-      {
-        path: 'detail',
-        name: 'applyDetail',
-        meta: {
-          title: '已申请详情',
-          showNavbar: true
-        },
-        component: () => import('@/views/apply/applyDetail')
-      },
-      {
-        path: 'result',
-        name: 'applyResult',
-        meta: {
-          title: '申诉结果',
-          showNavbar: true
-        },
-        component: () => import('@/views/apply/applyResult')
-      }
-    ]
+    path: '/charts',
+    name: 'charts',
+    meta: {
+      title: 'F2 图表'
+    },
+    component: () => import('@/views/charts/index')
   }
 ]
 
@@ -110,6 +84,7 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  document.title = to.meta.title
   next()
 })
 
