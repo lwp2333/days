@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Vant from 'vant'
+import '@antv/data-set'
 import { Toast } from 'vant'
 import mavonEditor from 'mavon-editor'
 import myLoading from './components/loading/index'

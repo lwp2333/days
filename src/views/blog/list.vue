@@ -40,7 +40,7 @@ export default {
       }, 1000)
     },
     handleDetail: function(item) {
-      this.$router.push({ path: '/blog/detail', query: { title: item } })
+      this.$router.push({ path: '/blog/detail', query: { id: '20200415', title: item } })
     }
   }
 }

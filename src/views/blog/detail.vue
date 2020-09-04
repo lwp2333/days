@@ -1,18 +1,19 @@
 <template>
   <div class="container">
-    <mavon-editor v-model="content" :toolbars="toolbars" :ishljs="true" :subfield="false" />
+    <mavon-editor v-model="md.content" :toolbars="toolbars" :ishljs="true" :subfield="false" />
   </div>
 </template>
 
 <script>
 import { toolbars } from '@/common/options/mavonEditor'
+import md from '@/common/docs/loading.md.js'
 export default {
   name: 'BlogDetail',
   components: {},
   data: function() {
     return {
       toolbars,
-      content: "```js\nconst a ='堃堃' \nconst b = function(){\n}\n```\n"
+      md
     }
   },
   created: function() {},
