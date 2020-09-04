@@ -72,7 +72,7 @@
 
 <script>
 import { upload, createUser, getUserDetail, updateUser } from '@/api/user'
-import { tagsOptions } from '@/common/options/tags'
+import { tagsOptions } from '@/common/constant/tags'
 export default {
   name: 'UserDetail',
   components: {},

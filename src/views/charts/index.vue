@@ -11,7 +11,7 @@
 import F2 from '@antv/f2'
 import _ from 'lodash'
 import DataSet from '@antv/data-set'
-import ciYunData from '@/common/options/dataSet'
+import ciYunData from '@/common/constant/dataSet'
 export default {
   name: 'ChartsContainer',
   components: {},

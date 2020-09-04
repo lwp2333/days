@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { toolbars } from '@/common/options/mavonEditor'
+import { toolbars } from '@/common/constant/mavonEditor'
 import md from '@/common/docs/loading.md.js'
 export default {
   name: 'BlogDetail',
