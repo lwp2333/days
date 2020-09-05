@@ -664,9 +664,9 @@ export default {
 .chartsContainer {
   width: 100%;
   .canvas {
-    margin-top: 12vh;
-    width: 100vw;
-    height: 50vh;
+    margin-top: 12vw;
+    width: 100vw !important;
+    height: 80vw !important;
     background-color: #fff;
   }
 }
