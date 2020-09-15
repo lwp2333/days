@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了呀" @load="onLoad">
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了呀" @load="onLoad" :immediate-check="false">
       <van-cell v-for="item in list" :key="item" :title="item" @click="handleDetail(item)" />
     </van-list>
   </div>
@@ -17,8 +17,13 @@ export default {
       finished: false
     }
   },
-  created: function() {},
+  created: function() {
+    this.onLoad()
+  },
   computed: {},
+  beforeDestroy: function() {
+    this.$myLoading.hide()
+  },
   methods: {
     onLoad: function() {
       // 异步更新数据

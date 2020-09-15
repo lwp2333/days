@@ -2,9 +2,10 @@
   <div class="tabbar">
     <van-tabbar v-model="active" @change="tabChange">
       <van-tabbar-item name="/user" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item name="/amap" icon="search">地图</van-tabbar-item>
+      <van-tabbar-item name="/amap" icon="location-o">地图</van-tabbar-item>
+      <van-tabbar-item name="/icon" icon="smile-comment-o">图标</van-tabbar-item>
       <van-tabbar-item name="/blog" icon="friends-o">博客</van-tabbar-item>
-      <van-tabbar-item name="/charts" icon="setting-o">图表</van-tabbar-item>
+      <van-tabbar-item name="/charts" icon="chart-trending-o">图表</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

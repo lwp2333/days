@@ -45,6 +45,14 @@ const routes = [
     component: () => import('@/views/Amap/index')
   },
   {
+    path: '/icon',
+    name: 'Icon',
+    meta: {
+      title: '图标列表'
+    },
+    component: () => import('@/views/iconList/index')
+  },
+  {
     path: '/blog',
     name: 'blog',
     component: () => import('@/views/blog/index'),
