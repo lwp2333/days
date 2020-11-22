@@ -3,7 +3,7 @@
     <van-grid :gutter="6" square>
       <van-grid-item v-for="(item, index) in iconList" :key="index" @click="iconClick(item)">
         <template #icon>
-          <lwp-icon :iconName="item.className"></lwp-icon>
+          <lwp-icon :iconName="item.className" size="small"></lwp-icon>
         </template>
         <template #text>
           <span class="greyText">
@@ -16,13 +16,9 @@
 </template>
 
 <script>
-import lwpIcon from '@/icon/index'
 import iconList from '@/icon/iconfont'
 export default {
-  name: '',
-  components: {
-    lwpIcon
-  },
+  name: 'IconList',
   data: function() {
     return {
       iconList

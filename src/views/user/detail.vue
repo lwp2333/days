@@ -71,7 +71,9 @@
 </template>
 
 <script>
-import { upload, createUser, getUserDetail, updateUser } from '@/api/user'
+import { createUser, getUserDetail, updateUser } from '@/api/user'
+import { uploadFile } from '@/api/common'
+
 import { tagsOptions } from '@/common/constant/tags'
 export default {
   name: 'UserDetail',
@@ -107,7 +109,11 @@ export default {
           const { avatar, ...other } = res
           this.form = {
             ...other,
-            avatar: [avatar]
+            avatar: [
+              {
+                url: avatar
+              }
+            ]
           }
         }
       }
@@ -122,14 +128,15 @@ export default {
       file.status = 'uploading'
       file.message = '上传中...'
       const data = new FormData()
-      data.append('file', file.file)
-      const res = await upload(data).catch(() => {
+      data.append('files', file.file)
+      const res = await uploadFile(data).catch(() => {
         file.status = 'failed'
         file.message = '上传失败'
       })
       file.status = 'success'
       file.message = '上传成功'
-      this.form.avatar = [res]
+      const { ossUrl: url } = res
+      this.form.avatar = [{ url }]
     },
     onSubmit: function() {
       let Action = createUser
@@ -139,7 +146,7 @@ export default {
       const { avatar, ...other } = this.form
       const data = {
         ...other,
-        avatar: avatar[0]
+        avatar: avatar[0].url
       }
       Action(data).then(() => {
         this.$notify({

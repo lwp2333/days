@@ -5,6 +5,7 @@ import '@antv/data-set'
 import { Toast } from 'vant'
 import mavonEditor from 'mavon-editor'
 import myLoading from './components/loading/index'
+import lwpIcon from './icon/index'
 import 'mavon-editor/dist/css/index.css'
 // use
 import 'vant/lib/index.css'
@@ -18,6 +19,7 @@ Vue.use(Vant)
 Vue.use(mavonEditor)
 Vue.use(myLoading, { text: '加载中...' })
 Vue.use(Toast)
+Vue.component('lwpIcon', lwpIcon)
 new Vue({
   router,
   store,

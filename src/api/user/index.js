@@ -53,12 +53,3 @@ export function getUserDetail(params) {
     params
   })
 }
-
-/** 上传头像 */
-export function upload(data) {
-  return request({
-    url: 'upload',
-    method: 'post',
-    data
-  })
-}

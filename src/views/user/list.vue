@@ -18,7 +18,7 @@
             <span class="userName">{{ item.name }}</span>
           </template>
           <template>
-            <van-image round width="12vw" height="12vw" :src="item.avatar | urlFilter" />
+            <van-image round width="12vw" height="12vw" :src="item.avatar" />
           </template>
           <template #label>
             <van-tag v-for="(item, index) in item.tags" mark :type="tagType[index % 3]" :key="index">{{ item }}</van-tag>
@@ -63,12 +63,6 @@ export default {
   created: function() {
     this.onLoad()
   },
-  filters: {
-    urlFilter: function(item) {
-      return item ? item.url : ''
-    }
-  },
-  computed: {},
   methods: {
     onLoad: async function() {
       this.loading = true

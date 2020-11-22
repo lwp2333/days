@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { Notify } from 'vant'
+import router from '../router/index'
+
 Notify.setDefaultOptions({
   duration: 2200
 })
@@ -10,9 +12,17 @@ const service = axios.create({
   timeout: 6000
 })
 
+window.axiosCalcelTokenArr = []
+
 // 请求前拦截
 service.interceptors.request.use(
   config => {
+    /**
+     * 给每个请求一个token 标记，用于页面切换。取消上个未完成的接口请求
+     */
+    config.cancelToken = new axios.CancelToken(cancel => {
+      window.axiosCalcelTokenArr.push({ cancel })
+    })
     return config
   },
   error => {
@@ -55,9 +65,13 @@ service.interceptors.response.use(
     switch (res.data.code) {
       case 200:
         return successRes(res)
-      case 201 || 203:
+      case 201:
         return successChange(res)
-      case 202 || 204:
+      case 202:
+        return danger(res)
+      case 203:
+        return successChange(res)
+      case 204:
         return danger(res)
       case 301:
         return danger(res)
@@ -68,7 +82,11 @@ service.interceptors.response.use(
     }
   },
   err => {
-    danger(err)
+    Notify({
+      type: 'danger',
+      message: err.message
+    })
+    return Promise.reject(err.message)
   }
 )
 service.download = async (url, params) => {
@@ -96,4 +114,13 @@ service.download = async (url, params) => {
   window.URL.revokeObjectURL(blobUrl)
 }
 
+router.beforeEach((to, from, next) => {
+  window.axiosCalcelTokenArr.forEach((item, index) => {
+    if (item) {
+      item.cancel('上个页面未完成的接口请求已成功取消')
+      window.axiosCalcelTokenArr.splice(index, 1)
+    }
+  })
+  next()
+})
 export default service

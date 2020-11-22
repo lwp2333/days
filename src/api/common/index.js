@@ -1,17 +1,18 @@
 import request from '../request'
 
 /** 获取人员列表*/
-export function fileDownload(params) {
+export function downloadFile(params) {
   return request.download({
-    url: '/download',
+    url: '/downloadFile',
+    method: 'get',
     params
   })
 }
 
 /** 添加人员*/
-export function fileUpload(data) {
+export function uploadFile(data) {
   return request({
-    url: 'upload',
+    url: '/uploadFile',
     method: 'post',
     data
   })
